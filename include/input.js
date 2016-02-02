@@ -337,6 +337,7 @@ var Keyboard, Mouse;
                 Util.addEvent(window, 'touchend', this._eventHandlers.mouseup);
                 Util.addEvent(c, 'touchend', this._eventHandlers.mouseup);
                 Util.addEvent(c, 'touchmove', this._eventHandlers.mousemove);
+            }
             if (!isTouch || this._enableMouseAndTouch) {
                 Util.addEvent(c, 'mousedown', this._eventHandlers.mousedown);
                 Util.addEvent(window, 'mouseup', this._eventHandlers.mouseup);
