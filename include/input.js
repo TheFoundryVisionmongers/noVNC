@@ -362,8 +362,8 @@ var Keyboard, Mouse;
                 Util.removeEvent(c, 'touchend', this._eventHandlers.mouseup);
                 Util.removeEvent(c, 'touchmove', this._eventHandlers.mousemove);
             }
- +
- +		    if (!isTouch || this._enableMouseAndTouch) {
+ 
+ 		    if (!isTouch || this._enableMouseAndTouch) {
                 Util.removeEvent(c, 'mousedown', this._eventHandlers.mousedown);
                 Util.removeEvent(window, 'mouseup', this._eventHandlers.mouseup);
                 Util.removeEvent(c, 'mouseup', this._eventHandlers.mouseup);
