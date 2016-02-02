@@ -331,13 +331,13 @@ var Keyboard, Mouse;
         // Public methods
         grab: function () {
             var c = this._target;
-
-            if ('ontouchstart' in document.documentElement) {
+            var isTouch = 'ontouchstart' in document.documentElement;
+            if (isTouch) {
                 Util.addEvent(c, 'touchstart', this._eventHandlers.mousedown);
                 Util.addEvent(window, 'touchend', this._eventHandlers.mouseup);
                 Util.addEvent(c, 'touchend', this._eventHandlers.mouseup);
                 Util.addEvent(c, 'touchmove', this._eventHandlers.mousemove);
-            } else {
+            if (!isTouch || this._enableMouseAndTouch) {
                 Util.addEvent(c, 'mousedown', this._eventHandlers.mousedown);
                 Util.addEvent(window, 'mouseup', this._eventHandlers.mouseup);
                 Util.addEvent(c, 'mouseup', this._eventHandlers.mouseup);
@@ -353,13 +353,16 @@ var Keyboard, Mouse;
 
         ungrab: function () {
             var c = this._target;
+            var isTouch = 'ontouchstart' in document.documentElement;
 
-            if ('ontouchstart' in document.documentElement) {
+            if (isTouch) {
                 Util.removeEvent(c, 'touchstart', this._eventHandlers.mousedown);
                 Util.removeEvent(window, 'touchend', this._eventHandlers.mouseup);
                 Util.removeEvent(c, 'touchend', this._eventHandlers.mouseup);
                 Util.removeEvent(c, 'touchmove', this._eventHandlers.mousemove);
-            } else {
+            }
+ +
+ +		    if (!isTouch || this._enableMouseAndTouch) {
                 Util.removeEvent(c, 'mousedown', this._eventHandlers.mousedown);
                 Util.removeEvent(window, 'mouseup', this._eventHandlers.mouseup);
                 Util.removeEvent(c, 'mouseup', this._eventHandlers.mouseup);
@@ -380,6 +383,7 @@ var Keyboard, Mouse;
         ['notify',         'ro', 'func'],  // Function to call to notify whenever a mouse event is received
         ['focused',        'rw', 'bool'],  // Capture and send mouse clicks/movement
         ['scale',          'rw', 'float'], // Viewport scale factor 0.0 - 1.0
+        ['enableMouseAndTouch', 'rw', 'bool'],  // Whether also enable mouse events when touch screen is detected
 
         ['onMouseButton',  'rw', 'func'],  // Handler for mouse button click/release
         ['onMouseMove',    'rw', 'func'],  // Handler for mouse movement
